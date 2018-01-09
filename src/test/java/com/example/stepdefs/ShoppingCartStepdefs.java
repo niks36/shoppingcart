@@ -4,8 +4,6 @@ import com.example.cart.CartApplication;
 import com.example.cart.model.ProductDetail;
 import com.example.cart.repo.ProductRepository;
 import com.example.cart.service.ShoppingCartService;
-import com.example.cart.tax.SimpleTaxCalculator;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -62,16 +60,6 @@ public class ShoppingCartStepdefs {
     public void shoppingCartTotalPriceIs(String totalPrice) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         Assert.assertEquals(new BigDecimal(totalPrice),shoppingCartService.getTotalAmount());
-    }
-
-    @And("^Tax rate is \"([^\"]*)\"$")
-    public void taxRateIs(String taxRate) throws Throwable {
-        shoppingCartService.setTaxCalculator(new SimpleTaxCalculator(new BigDecimal(taxRate)));
-    }
-
-    @And("^shopping cart tax amount is \"([^\"]*)\"$")
-    public void shoppingCartTaxAmountIs(String taxamount) throws Throwable {
-        Assert.assertEquals(new BigDecimal(taxamount),shoppingCartService.getTaxAmount());
     }
 }
 
