@@ -8,8 +8,9 @@ public class ProductDetail {
 
     private int quantity;
 
-    public ProductDetail(Product product) {
+    public ProductDetail(Product product,int quantity) {
         this.product = product;
+        this.quantity = quantity;
     }
 
     public Product getProduct() {
@@ -32,8 +33,4 @@ public class ProductDetail {
         return product.getPrice().multiply(new BigDecimal(quantity));
     }
 
-    public void incrementQuantity(int updateQuantity){
-        this.quantity += updateQuantity;
-
-    }
 }

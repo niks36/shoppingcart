@@ -52,14 +52,4 @@ public class ShoppingCartServiceTest {
         Assert.assertEquals(BigDecimal.ZERO,shoppingCartService.getTotalAmount());
     }
 
-    @Test
-    public void addMultipleSameProductToCart() {
-        Assert.assertTrue(shoppingCartService.addProduct(DOVE, 2));
-        Assert.assertTrue(shoppingCartService.addProduct(DOVE, 3));
-        Assert.assertEquals(DOVE,shoppingCartService.getProductDetail().get(0).getProduct().getProductName());
-        Assert.assertEquals(5,shoppingCartService.getProductDetail().get(0).getQuantity());
-        Assert.assertEquals(MathRound.roundUpToScale(new BigDecimal(199.95),2),shoppingCartService.getTotalAmount());
-    }
-
-
 }

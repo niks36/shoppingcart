@@ -32,8 +32,7 @@ public class ShoppingCartService {
         if(quantity > 0) {
             Product product = productRepository.findByName(productName);
             if (product != null) {
-                ProductDetail productDetail = productDetailList.computeIfAbsent(productName, s -> new ProductDetail(product));
-                productDetail.incrementQuantity(quantity);
+                ProductDetail productDetail = productDetailList.computeIfAbsent(productName, s -> new ProductDetail(product,quantity));
                 updateCartTotalAmount();
                 return true;
             }
