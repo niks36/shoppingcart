@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +23,8 @@ public class ShoppingCartService {
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
     private BigDecimal totalTax = BigDecimal.ZERO;
+
+    private BigDecimal discountAmount = BigDecimal.ZERO;
 
     private ProductRepository productRepository;
 
@@ -63,10 +64,19 @@ public class ShoppingCartService {
                 .map(ProductDetail::getTotalAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
+        discountAmount = MathRound.roundUpToScale(calculateDiscount(),2);
+        totalPrice = totalPrice.subtract(discountAmount);
         totalTax = MathRound.roundUpToScale(taxCalculator.calculateTax(totalPrice),2);
         totalPrice = MathRound.roundUpToScale(totalPrice.add(totalTax), 2);
     }
 
+    private BigDecimal calculateDiscount(){
+        return productDetailList.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .map(ProductDetail::getDiscount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+    }
     public BigDecimal getTotalAmount() {
         return totalPrice;
     }
@@ -80,4 +90,7 @@ public class ShoppingCartService {
         totalPrice = BigDecimal.ZERO;
     }
 
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
 }

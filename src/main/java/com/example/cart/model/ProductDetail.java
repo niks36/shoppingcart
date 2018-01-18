@@ -32,6 +32,10 @@ public class ProductDetail {
         return product.getPrice().multiply(new BigDecimal(quantity));
     }
 
+    public BigDecimal getDiscount(){
+        return product.getOffer().calcualteDiscount(product.getPrice(),quantity);
+    }
+
     public void incrementQuantity(int updateQuantity){
         this.quantity += updateQuantity;
 

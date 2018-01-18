@@ -1,5 +1,7 @@
 package com.example.cart.model;
 
+import com.example.cart.offer.Offer;
+
 import java.math.BigDecimal;
 
 public class Product {
@@ -8,9 +10,26 @@ public class Product {
 
     BigDecimal price;
 
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
+    Offer offer;
+
+    public Product(String productName, BigDecimal price, Offer offer) {
+        this.productName = productName;
+        this.price = price;
+        this.offer = offer;
+    }
+
     public Product(String productName, BigDecimal price) {
         this.productName = productName;
         this.price = price;
+        this.offer = new Offer();
     }
 
     public String getProductName() {
@@ -28,6 +47,7 @@ public class Product {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
 
     @Override
     public String toString() {
